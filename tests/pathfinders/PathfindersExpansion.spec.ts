@@ -353,7 +353,7 @@ describe('PathfindersExpansion', () => {
     PathfindersExpansion.grant('tr', player, Tag.EARTH);
     runAllActions(game);
 
-    expect(player.getTerraformRating()).eq(15);
+    expect(player.terraformRating).eq(15);
   });
 
   it('grant - venus_scale', () => {
@@ -366,6 +366,14 @@ describe('PathfindersExpansion', () => {
     runAllActions(game);
 
     expect(game.getVenusScaleLevel()).eq(2);
-    expect(player.getTerraformRating()).eq(15);
+    expect(player.terraformRating).eq(15);
+  });
+
+  it('willGainEnergyProductionOnNextMarsTag - works at max', () => {
+    const [game, player] = testGame(1, {pathfindersExpansion: true});
+
+    game.pathfindersData!.mars = 17;
+
+    PathfindersExpansion.willGainEnergyProductionOnNextMarsTag(player, 1);
   });
 });
